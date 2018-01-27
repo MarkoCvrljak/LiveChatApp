@@ -5,9 +5,9 @@
     margin-top: 10px;
     border-radius: 1px;
     align-items:flex-start;
-    background-color: #201835;
+    background-color: #747474;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    color: #A098A5;
+    color: rgb(56, 56, 56);
     border-radius: 8px;
     transition: ease-in 0.2s;
 }
