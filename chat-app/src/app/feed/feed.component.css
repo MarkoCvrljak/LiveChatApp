@@ -1,7 +1,8 @@
 .feed{
     display: flex;
     flex-direction: column;
-    margin-top: 70px;
+    margin-top: 37px;
+    margin-bottom: 90px;
 }
 
 .message{
