@@ -9,7 +9,56 @@ import { ChatMessage } from '../models/chat-message.model';
 
 @Injectable()
 export class ChatService {
+  user: firebase.User;
+  chatMessages: FirebaseListObservable<ChatMessage[]>;
+  chatMessage: ChatMessage;
+  userName: Observable<string>;
 
-  constructor() { }
+  constructor(
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireAuth
+    ) { /*
+        this.afAuth.authState.subscribe(auth => {
+          if (auth !== undefined && auth !== null) {
+            this.user = auth;
+          }
+        });
+        */
+    }
+
+    sendMessage(msg: string) {
+      const timestamp = this.getTimeStamp();
+      const email = "this.user.email";
+      this.chatMessages = this.getMessages();
+      this.chatMessages.push({
+        message: msg,
+        timeSent: timestamp,
+        userName: "this.userName",
+        email: email });
+
+        console.log('Sending message');
+    }
+
+    getMessages(): FirebaseListObservable<ChatMessage[]> {
+      // query to create our message feed binding
+      return this.db.list('messages', {
+        query: {
+          limitToLast: 25,
+          orderByKey: true
+        }
+      });
+    }
+
+    getTimeStamp() {
+      const now = new Date();
+      const date = now.getUTCFullYear() + '/' +
+                   (now.getUTCMonth() + 1) + '/' +
+                   now.getUTCDate();
+      const time = now.getUTCHours() + ':' +
+                   now.getUTCMinutes() + ':' +
+                   now.getUTCSeconds();
+  
+      return (date + ' ' + time);
+    }
 
 }
