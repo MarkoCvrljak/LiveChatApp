@@ -26,21 +26,22 @@ export class AuthService {
       return this.authState !== null ? this.authState.uid : '';
     }
 
-    login(email: string, password: string) {
+    login(email: string, password: string) : Promise<void> {
       return this.afAuth.auth.signInWithEmailAndPassword(email, password)
         .then((user) => {
           this.authState = user;
-          this.setUserStatus('online');
+          this.setUserStatus('offline');
           this.router.navigate(['chat']);
         });
     }
 
     logout() {
       this.afAuth.auth.signOut();
+      this.setUserStatus('offline');
       this.router.navigate(['login']);
     }
 
-    signUp(email: string, password: string, displayName: string) {
+    signUp(email: string, password: string, displayName: string): Promise<void> {
       return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
               .then((user) => {
                 this.authState = user;
